@@ -197,5 +197,34 @@ async def baoxiang(text: str) -> MessageChain:
 
 async def guanzi(text: str) -> MessageChain:
     logger.info(f"处理领取全部罐子识别结果: {text}")
-    # 这里添加领取全部罐子的具体处理逻辑
-    return MessageChain(Plain("罐子处理中..."))
+    # 提取所有带 X 的数据
+    x_pattern = re.compile(r"X\d+")
+    x_data = []
+    for match in x_pattern.finditer(text):
+        if len(x_data) < 3:
+            x_data.append(get_number_from_word(match.group()))
+    print(f"罐子拿到的内容{x_data}")
+    if len(x_data) == 3:
+        jin = x_data[0]  # 金罐子
+        yin = x_data[1]  # 银罐子
+        tong = x_data[2]  # 铜罐子
+
+        # 计算保底获得金砖数量
+        baodi = jin * 160 + yin * 100 + tong * 40
+        # 计算预计获得金砖数量
+        yuji = round(baodi * 1.15)
+
+        result_text = (
+            "识别囤罐子成功:\n"
+            f"金罐子：{jin}个\n"
+            f"银罐子：{yin}个\n"
+            f"铜罐子：{tong}个\n"
+            f"保底获得金砖：{baodi}\n"
+            f"预计获得金砖{yuji}\n"
+            "------------------------------\n"
+            "罐子识别计算仅为预估,\n数据取值为大部分玩家平均数值,\n基数越大,误差越小"
+        )
+        return MessageChain([Plain(result_text)])
+    else:
+        print("未找到足够带 X 的数据来计算罐子数量")
+        return MessageChain([Plain("识别错误,请重新截图")])
