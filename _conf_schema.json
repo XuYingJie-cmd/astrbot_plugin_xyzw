@@ -1,0 +1,38 @@
+{
+  "date": {
+    "description": "日期",
+    "type": "string",
+    "hint": "可选项。默认:2025-5-31 可以自行配置",
+    "default": "2025-5-31"
+  },
+  "jieri": {
+    "description": "节日",
+    "type": "string",
+    "hint": "可选项。默认端午节 可以自行配置",
+    "default": "端午节"
+  },
+  "jinzhuan": {
+    "description": "金砖",
+    "type": "int",
+    "hint": "可选项。默认23W金砖 可以自行配置",
+    "default": 230000
+  },
+  "yugan": {
+    "description": "黄金鱼竿",
+    "type": "int",
+    "hint": "可选项。默认650竿 可以自行配置",
+    "default": 30
+  },
+  "baoxiang": {
+    "description": "宝箱积分",
+    "type": "int",
+    "hint": "可选项。默认28000分 可以自行配置",
+    "default": 28000
+  },
+  "zhaomuling": {
+    "description": "招募令",
+    "type": "int",
+    "hint": "可选项。默认3000个 可以自行配置",
+    "default": 3000
+  }
+}

@@ -7,7 +7,7 @@ from datetime import datetime
 import math
 from astrbot.api.event import filter, AstrMessageEvent, MessageEventResult
 from astrbot.api.message_components import Video, Plain, Image
-
+from ..config import GLOBAL_CONFIG
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -17,12 +17,12 @@ ITEM_NAMES = [
     "木质宝箱", "青铜宝箱", "黄金宝箱", "铂金宝箱",
     "黄金鱼竿", "金砖", "招募令", "宝箱积分"
 ]
-HUODONG = "端午节"
-DAY = "2025-5-30"
-JINZHUAN_GOAL = 230000
-ZHAOMULING_GOAL = 3000
-YUGAN_GOAL = 650
-BAOXIANG_GOAL = 28000
+# HUODONG = "端午节"
+# DAY = "2025-5-30"
+# JINZHUAN_GOAL = 230000
+# ZHAOMULING_GOAL = 3000
+# YUGAN_GOAL = 650
+# BAOXIANG_GOAL = 28000
 
 
 def extract_item_value(value_str: str) -> int:
@@ -44,6 +44,15 @@ class Item:
 
 async def suanjinyu(text: str) -> MessageChain:
     logger.info(f"处理主线关卡识别结果: {text}")
+
+    # 获取配置参数
+    DAY = GLOBAL_CONFIG["date"]
+    HUODONG = GLOBAL_CONFIG["jieri"]
+    JINZHUAN_GOAL = GLOBAL_CONFIG["jinzhuan"]
+    ZHAOMULING_GOAL = GLOBAL_CONFIG["zhaomuling"]
+    YUGAN_GOAL = GLOBAL_CONFIG["yugan"]
+    BAOXIANG_GOAL = GLOBAL_CONFIG["baoxiang"]
+
     result = MessageChain()
     # 正则匹配物品信息
     pattern = re.compile(

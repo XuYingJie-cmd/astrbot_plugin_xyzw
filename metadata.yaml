@@ -1,6 +1,6 @@
-name: helloworld # 这是你的插件的唯一识别名。
-desc: 这是 AstrBot 的默认插件，支持关键词回复。 # 插件简短描述
-help: 输入 /keyword 查看关键词回复帮助。 # 插件的帮助信息
-version: v1.3 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Soulter # 作者
-repo: https://github.com/Soulter/helloworld # 插件的仓库地址
+name: xyzw_ocr # 这是你的插件的唯一识别名。
+desc: 关于咸鱼之王算宝箱,金鱼,罐子的一个插件 接入了飞浆ocr 请考虑服务器的资源是否足够。 # 插件简短描述
+help: 直接截图发送皆可 根据服务器配置可能有一定的误差。 # 插件的帮助信息
+version: v1.1.1 # 插件版本号。格式：v1.1.1 或者 v1.1
+author: 四郎 # 作者
+repo: https://github.com/XuYingJie-cmd/astrbot_plugin_xyzw # 插件的仓库地址

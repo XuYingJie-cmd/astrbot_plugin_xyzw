@@ -4,6 +4,8 @@ from astrbot.api.star import Context, Star, register
 from astrbot.api import logger
 from astrbot.core.star.filter.event_message_type import EventMessageType
 from data.plugins.astrbot_plugin_xyzw.api_collection import xyzw
+from astrbot.api import logger, AstrBotConfig
+from .config import GLOBAL_CONFIG
 
 try:
     from paddleocr import PaddleOCR
@@ -16,9 +18,18 @@ except Exception as e:
 
 @register("咸鱼之王", "咸鱼之王", "咸鱼之王算宝箱or金鱼or罐子", "1.0.0")
 class MyPlugin(Star):
-    def __init__(self, context: Context):
+    def __init__(self, context: Context, config: AstrBotConfig = None):
         super().__init__(context)
+        self.config = config or {}
+        GLOBAL_CONFIG["date"] = config.get("date", "2025-5-31")
+        GLOBAL_CONFIG["jieri"] = config.get("jieri")
+        GLOBAL_CONFIG["jinzhuan"] = config.get("jinzhuan")
+        GLOBAL_CONFIG["yugan"] = config.get("yugan")
+        GLOBAL_CONFIG["baoxiang"] = config.get("baoxiang")
+        GLOBAL_CONFIG["zhaomuling"] = config.get("zhaomuling")
         # 不需要在 __init__ 中再初始化，已经在全局初始化过了
+        print("全局变量初始化完成")
+        print(GLOBAL_CONFIG)
 
     @filter.event_message_type(EventMessageType.ALL)
     async def helloworld(self, event: AstrMessageEvent):
