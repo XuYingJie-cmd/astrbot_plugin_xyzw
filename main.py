@@ -32,7 +32,7 @@ class MyPlugin(Star):
         print(GLOBAL_CONFIG)
 
     @filter.event_message_type(EventMessageType.ALL)
-    async def helloworld(self, event: AstrMessageEvent):
+    async def xyzwocr(self, event: AstrMessageEvent):
         global ocr  # 声明使用全局变量
 
         message_chain = event.get_messages()
