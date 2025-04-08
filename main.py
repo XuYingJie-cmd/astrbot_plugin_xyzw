@@ -12,7 +12,8 @@ try:
     ocr = PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
     logger.info("PaddleOCR 初始化成功")
 except Exception as e:
-    logger.error(f"初始化 PaddleOCR 失败: {e}")
+    error_traceback = traceback.format_exc()
+    logger.error(f"初始化 PaddleOCR 失败: {e}\n详细信息:\n{error_traceback}")
     ocr = None
 
 
