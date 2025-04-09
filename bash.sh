@@ -10,9 +10,24 @@ log() {
     echo "[$timestamp] $message"
 }
 
+# 导入 Ubuntu 官方 GPG 公钥（解决签名验证问题）
+log "正在导入 Ubuntu 官方 GPG 公钥"
+apt-get update && apt-get install -y gnupg
+if [ $? -ne 0 ]; then
+    log "安装 gnupg 失败"
+    exit 1
+fi
+gpg --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
+if [ $? -ne 0 ]; then
+    log "导入 GPG 公钥失败"
+    exit 1
+fi
+gpg --export --armor 871920D1991BC93C > /etc/apt/trusted.gpg.d/ubuntu-jammy.gpg
+
 # 替换为阿里云镜像源
 log "正在执行: 替换软件源为阿里云镜像源"
-echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse" > /etc/apt/sources.list
+> /etc/apt/sources.list  # 先清空原文件
+echo "deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse" >> /etc/apt/sources.list
 echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list
 echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse" >> /etc/apt/sources.list
 echo "deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list
