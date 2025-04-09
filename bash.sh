@@ -5,6 +5,12 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
+# 安装 apt-fast
+log "安装 apt-fast"
+sudo add-apt-repository -y ppa:apt-fast/stable
+sudo apt-get update
+sudo apt-get -y install apt-fast
+
 # 1. 配置APT源（更换为清华大学镜像源）
 log "配置APT镜像源"
 tee /etc/apt/sources.list <<EOF
