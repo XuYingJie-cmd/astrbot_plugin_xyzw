@@ -9,22 +9,22 @@ if [ -f "/etc/apt/sources.list" ]; then
     fi
 fi
 
-# 创建新的 sources.list 文件并写入阿里云镜像源内容
+# 创建新的 sources.list 文件并写入清华镜像源内容
 cat << EOF > /etc/apt/sources.list
-deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
 
-deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
 
-deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
 
-deb http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ jammy-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
 
-deb http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
-deb-src http://mirrors.aliyun.com/ubuntu/ jammy-proposed main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
+deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-proposed main restricted universe multiverse
 EOF
 if [ $? -ne 0 ]; then
     echo "写入新的 sources.list 文件失败"
