@@ -17,17 +17,25 @@ if [ ! -f /etc/apt/sources.list ]; then
     echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" |  tee /etc/apt/sources.list
 fi
 
-# 安装依赖
-log "正在执行: 安装依赖"
-apt-get install -y --only-upgrade libgl1-mesa-glx
+# 更新软件源
+log "正在更新软件源"
+apt-get update
 if [ $? -ne 0 ]; then
-    log "更新 libgl1-mesa-glx 失败"
+    log "更新软件源失败"
     exit 1
 fi
 
-apt-get install -y --only-upgrade libglib2.0-0
+# 安装依赖
+log "正在执行: 安装依赖"
+apt-get install -y libgl1-mesa-glx
 if [ $? -ne 0 ]; then
-    log "更新 libglib2.0-0 失败"
+    log "安装 libgl1-mesa-glx 失败"
+    exit 1
+fi
+
+apt-get install -y libglib2.0-0
+if [ $? -ne 0 ]; then
+    log "安装 libglib2.0-0 失败"
     exit 1
 fi
 
