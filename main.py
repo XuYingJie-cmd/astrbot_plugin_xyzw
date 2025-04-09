@@ -9,6 +9,7 @@ from astrbot.api import logger, AstrBotConfig
 from .config import GLOBAL_CONFIG
 import os
 
+
 # 获取当前 Python 脚本所在的目录
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # 构建 bash.sh 脚本的相对路径
@@ -26,9 +27,10 @@ except ImportError as e:
     error_traceback = traceback.format_exc()
     logger.error(f"初始化 PaddleOCR 失败，可能是依赖问题: {e}\n详细信息:\n{error_traceback}")
     try:
-        logger.info("尝试执行 bash.sh 脚本安装依赖...")
+        logger.info(f"尝试执行 {bash_script_path} 脚本安装依赖...")
         result = subprocess.run(['bash', bash_script_path], capture_output=True, text=True, check=True)
-        logger.info("bash.sh 脚本执行成功，重新尝试初始化 PaddleOCR...")
+        logger.info(f"{bash_script_path} 脚本执行成功，标准输出:\n{result.stdout}")
+        logger.info("重新尝试初始化 PaddleOCR...")
         import paddlepaddle
         import paddleocr
         import setuptools
@@ -37,7 +39,7 @@ except ImportError as e:
         ocr = paddleocr.PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
         logger.info("PaddleOCR 重新初始化成功")
     except subprocess.CalledProcessError as se:
-        logger.error(f"执行 bash.sh 脚本失败: {se.stderr}")
+        logger.error(f"执行 {bash_script_path} 脚本失败: {se.stderr}")
         ocr = None
     except ImportError as ie:
         error_traceback = traceback.format_exc()
@@ -51,6 +53,8 @@ except Exception as e:
     error_traceback = traceback.format_exc()
     logger.error(f"初始化 PaddleOCR 失败: {e}\n详细信息:\n{error_traceback}")
     ocr = None
+
+
 
 
 
