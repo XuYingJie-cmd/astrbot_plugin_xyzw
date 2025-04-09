@@ -20,10 +20,8 @@ apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0
 
 # 3. 安装Python包（多镜像源）
 log "安装Python依赖"
-pip install -r requirements.txt \
-  -i https://pypi.tuna.tsinghua.edu.cn/simple \
-  --extra-index-url https://mirrors.aliyun.com/pypi/simple \
-  --trusted-host mirrors.aliyun.com pypi.tuna.tsinghua.edu.cn
+pip install -r requirements.txt  -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
 
 set +x
 log "完成！"
