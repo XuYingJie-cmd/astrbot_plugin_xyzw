@@ -5,9 +5,6 @@ log() {
     echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
-# 备份原有的sources.list文件
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
 # 使用阿里云镜像源替换原有内容
 cat << EOF > /etc/apt/sources.list
 deb http://mirrors.aliyun.com/debian/ bullseye main non-free contrib
