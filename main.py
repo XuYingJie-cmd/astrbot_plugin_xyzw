@@ -7,55 +7,15 @@ from astrbot.core.star.filter.event_message_type import EventMessageType
 from data.plugins.astrbot_plugin_xyzw.api_collection import xyzw
 from astrbot.api import logger, AstrBotConfig
 from .config import GLOBAL_CONFIG
-import os
-
-
-# 获取当前 Python 脚本所在的目录
-script_dir = os.path.dirname(os.path.abspath(__file__))
-# 构建 bash.sh 脚本的相对路径
-bash_script_path = os.path.join(script_dir, 'bash.sh')
 
 try:
-    import paddlepaddle
-    import paddleocr
-    import setuptools
-    if setuptools.__version__ != "59.5.0":
-        raise ImportError("setuptools 版本必须为 59.5.0")
-    ocr = paddleocr.PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
+    from paddleocr import PaddleOCR
+    ocr = PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
     logger.info("PaddleOCR 初始化成功")
-except ImportError as e:
-    error_traceback = traceback.format_exc()
-    logger.error(f"初始化 PaddleOCR 失败，可能是依赖问题: {e}\n详细信息:\n{error_traceback}")
-    try:
-        logger.info(f"尝试执行 {bash_script_path} 脚本安装依赖...")
-        result = subprocess.run(['bash', bash_script_path], capture_output=True, text=True, check=True)
-        logger.info(f"{bash_script_path} 脚本执行成功，标准输出:\n{result.stdout}")
-        logger.info("重新尝试初始化 PaddleOCR...")
-        import paddlepaddle
-        import paddleocr
-        import setuptools
-        if setuptools.__version__ != "59.5.0":
-            raise ImportError("setuptools 版本必须为 59.5.0")
-        ocr = paddleocr.PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
-        logger.info("PaddleOCR 重新初始化成功")
-    except subprocess.CalledProcessError as se:
-        logger.error(f"执行 {bash_script_path} 脚本失败: {se.stderr}")
-        ocr = None
-    except ImportError as ie:
-        error_traceback = traceback.format_exc()
-        logger.error(f"重新初始化 PaddleOCR 失败，可能依赖安装仍有问题: {ie}\n详细信息:\n{error_traceback}")
-        ocr = None
-    except Exception as ge:
-        error_traceback = traceback.format_exc()
-        logger.error(f"重新初始化 PaddleOCR 失败: {ge}\n详细信息:\n{error_traceback}")
-        ocr = None
 except Exception as e:
     error_traceback = traceback.format_exc()
     logger.error(f"初始化 PaddleOCR 失败: {e}\n详细信息:\n{error_traceback}")
     ocr = None
-
-
-
 
 
 @register("咸鱼之王", "咸鱼之王", "咸鱼之王算宝箱or金鱼or罐子", "1.0.0")
