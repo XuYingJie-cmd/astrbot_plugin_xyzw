@@ -12,6 +12,16 @@ if [ -f /etc/apt/sources.list ]; then
 fi
 > /etc/apt/sources.list
 
+# 备份并清空 /etc/apt/sources.list.d/ 目录下的所有文件
+if [ -d /etc/apt/sources.list.d ]; then
+    for file in /etc/apt/sources.list.d/*.list; do
+        if [ -f "$file" ]; then
+            mv "$file" "$file.bak"
+            > "$file"
+        fi
+    done
+fi
+
 # 2. 配置阿里云 APT 源
 log "配置 APT 镜像源"
 tee /etc/apt/sources.list <<EOF
@@ -36,6 +46,15 @@ pip install -r requirements.txt \
 log "恢复原来的 APT 源"
 if [ -f /etc/apt/sources.list.bak ]; then
     mv /etc/apt/sources.list.bak /etc/apt/sources.list
+fi
+
+# 恢复 /etc/apt/sources.list.d/ 目录下的备份文件
+if [ -d /etc/apt/sources.list.d ]; then
+    for file in /etc/apt/sources.list.d/*.list.bak; do
+        if [ -f "$file" ]; then
+            mv "$file" "${file%.bak}"
+        fi
+    done
 fi
 
 set +x
