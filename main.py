@@ -7,6 +7,12 @@ from astrbot.core.star.filter.event_message_type import EventMessageType
 from data.plugins.astrbot_plugin_xyzw.api_collection import xyzw
 from astrbot.api import logger, AstrBotConfig
 from .config import GLOBAL_CONFIG
+import os
+
+# 获取当前 Python 脚本所在的目录
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# 构建 bash.sh 脚本的相对路径
+bash_script_path = os.path.join(script_dir, 'bash.sh')
 
 try:
     import paddlepaddle
@@ -21,7 +27,7 @@ except ImportError as e:
     logger.error(f"初始化 PaddleOCR 失败，可能是依赖问题: {e}\n详细信息:\n{error_traceback}")
     try:
         logger.info("尝试执行 bash.sh 脚本安装依赖...")
-        result = subprocess.run(['bash', 'bash.sh'], capture_output=True, text=True, check=True)
+        result = subprocess.run(['bash', bash_script_path], capture_output=True, text=True, check=True)
         logger.info("bash.sh 脚本执行成功，重新尝试初始化 PaddleOCR...")
         import paddlepaddle
         import paddleocr
@@ -45,6 +51,7 @@ except Exception as e:
     error_traceback = traceback.format_exc()
     logger.error(f"初始化 PaddleOCR 失败: {e}\n详细信息:\n{error_traceback}")
     ocr = None
+
 
 
 @register("咸鱼之王", "咸鱼之王", "咸鱼之王算宝箱or金鱼or罐子", "1.0.0")
