@@ -34,22 +34,7 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 备份原有的软件源文件
-log "正在执行: 备份原有的软件源文件"
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-if [ $? -ne 0 ]; then
-    log "备份软件源文件失败"
-    exit 1
-fi
 
-# 替换软件源为阿里云镜像源
-log "正在执行: 替换软件源为阿里云镜像源"
-sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
-sed -i 's/http:\/\/security.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
-if [ $? -ne 0 ]; then
-    log "替换软件源失败"
-    exit 1
-fi
 
 # 更新软件包列表
 log "正在执行: 更新软件包列表"
