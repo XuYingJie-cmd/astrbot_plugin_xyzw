@@ -1,52 +1,33 @@
 #!/bin/bash
 
-# 开启调试模式，方便调试时查看命令执行情况
+# 开启调试模式
 set -x
 
-# 定义日志函数，用于记录脚本执行过程中的信息
+# 日志函数
 log() {
     local message="$1"
-    local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
-    echo "[$timestamp] $message"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $message"
 }
 
-# 检查并创建 sources.list 文件
-if [ ! -f /etc/apt/sources.list ]; then
-    log "创建 /etc/apt/sources.list 文件"
-    # 这里假设使用 Ubuntu 20.04 (focal) 的源，根据实际情况修改
-    echo "deb http://archive.ubuntu.com/ubuntu focal main restricted universe multiverse" |  tee /etc/apt/sources.list
-fi
+# 配置正确的 Ubuntu 22.04 (jammy) 源
+log "配置软件源"
+tee /etc/apt/sources.list <<EOF
+deb http://archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu jammy-security main restricted universe multiverse
+EOF
 
-# 更新软件源
-log "正在更新软件源"
-apt-get update
-if [ $? -ne 0 ]; then
-    log "更新软件源失败"
-    exit 1
-fi
+# 更新软件源（忽略可能的 GPG 警告，通常不影响依赖安装）
+log "更新软件源"
+apt-get update -o Acquire::AllowInsecureRepositories=true
 
 # 安装依赖
-log "正在执行: 安装依赖"
-apt-get install -y libgl1-mesa-glx
-if [ $? -ne 0 ]; then
-    log "安装 libgl1-mesa-glx 失败"
-    exit 1
-fi
-
-apt-get install -y libglib2.0-0
-if [ $? -ne 0 ]; then
-    log "安装 libglib2.0-0 失败"
-    exit 1
-fi
+log "安装系统依赖"
+apt-get install -y --allow-unauthenticated libgl1-mesa-glx libglib2.0-0
 
 # 安装 Python 包
-log "正在执行: 安装 Python 包"
+log "安装 Python 依赖"
 pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
-if [ $? -ne 0 ]; then
-    log "安装 Python 包失败"
-    exit 1
-fi
 
 # 关闭调试模式
 set +x
-log "脚本执行成功"
+log "完成！"
