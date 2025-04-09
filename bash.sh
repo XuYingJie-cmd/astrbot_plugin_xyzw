@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# 进入容器再操作
-docker exec -it astrbot /bin/bash << EOF
-
 # 开启调试模式，方便调试时查看命令执行情况
 set -x
 
@@ -64,4 +61,3 @@ fi
 # 关闭调试模式
 set +x
 log "脚本执行成功" "$GREEN"
-EOF
