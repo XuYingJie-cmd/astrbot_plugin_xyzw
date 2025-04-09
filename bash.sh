@@ -31,6 +31,13 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# 导入缺失的公钥
+sudo gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
+if [ $? -ne 0 ]; then
+    echo "导入公钥失败"
+    exit 1
+fi
+
 # 更新软件包列表
 apt-get update
 if [ $? -ne 0 ]; then
