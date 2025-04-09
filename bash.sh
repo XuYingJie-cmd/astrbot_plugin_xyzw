@@ -1,33 +1,29 @@
 #!/bin/bash
-
-# 开启调试模式
 set -x
 
-# 日志函数
 log() {
-    local message="$1"
-    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $message"
+    echo "[$(date +'%Y-%m-%d %H:%M:%S')] $1"
 }
 
-# 配置正确的 Ubuntu 22.04 (jammy) 源
-log "配置软件源"
+# 1. 配置清华APT源
+log "配置APT镜像源"
 tee /etc/apt/sources.list <<EOF
-deb http://archive.ubuntu.com/ubuntu jammy main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu jammy-security main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
 EOF
 
-# 更新软件源（忽略可能的 GPG 警告，通常不影响依赖安装）
-log "更新软件源"
+# 2. 更新并安装依赖
+log "更新系统"
 apt-get update -o Acquire::AllowInsecureRepositories=true
+apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0
 
-# 安装依赖
-log "安装系统依赖"
-apt-get install -y --allow-unauthenticated libgl1-mesa-glx libglib2.0-0
+# 3. 安装Python包（多镜像源）
+log "安装Python依赖"
+pip install -r requirements.txt \
+  -i https://pypi.tuna.tsinghua.edu.cn/simple \
+  --extra-index-url https://mirrors.aliyun.com/pypi/simple \
+  --trusted-host mirrors.aliyun.com pypi.tuna.tsinghua.edu.cn
 
-# 安装 Python 包
-log "安装 Python 依赖"
-pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple
-
-# 关闭调试模式
 set +x
 log "完成！"
