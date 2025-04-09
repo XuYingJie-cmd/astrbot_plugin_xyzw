@@ -19,14 +19,14 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# 备份原有的软件源文件
-echo "正在执行: 备份原有的软件源文件"
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-
-# 替换软件源为阿里云镜像源
-echo "正在执行: 替换软件源为阿里云镜像源"
-sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
-sed -i 's/http:\/\/security.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
+## 备份原有的软件源文件
+#echo "正在执行: 备份原有的软件源文件"
+#cp /etc/apt/sources.list /etc/apt/sources.list.bak
+#
+## 替换软件源为阿里云镜像源
+#echo "正在执行: 替换软件源为阿里云镜像源"
+#sed -i 's/http:\/\/archive.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
+#sed -i 's/http:\/\/security.ubuntu.com\/ubuntu\//http:\/\/mirrors.aliyun.com\/ubuntu\//g' /etc/apt/sources.list
 
 # 更新软件包列表
 echo "正在执行: 更新软件包列表"
