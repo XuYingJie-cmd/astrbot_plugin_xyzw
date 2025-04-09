@@ -10,21 +10,6 @@ log() {
     echo "[$timestamp] $message"
 }
 
-# 获取当前脚本所在目录
-log "正在执行: 获取当前脚本所在目录"
-SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-if [ $? -ne 0 ]; then
-    log "获取脚本所在目录失败"
-    exit 1
-fi
-
-# 切换到包含 requirements.txt 的目录
-log "正在执行: 切换到包含 requirements.txt 的目录"
-cd "$SCRIPT_DIR"
-if [ $? -ne 0 ]; then
-    log "切换到 $SCRIPT_DIR 目录失败"
-    exit 1
-fi
 
 # 安装 Python 包
 log "正在执行: 安装 Python 包"
