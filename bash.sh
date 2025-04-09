@@ -13,21 +13,17 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted u
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
 EOF
 
-# 2. 修复GPG密钥
-log "修复GPG公钥"
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
+# 2. 更新软件包列表
+log "更新软件包列表"
+sudo apt-get update
 
-# 3. 更新系统
-log "更新系统"
-apt-get update -y && apt-get upgrade -y
-apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0
+# 3. 强制更新系统并安装指定包
+log "强制更新系统并安装指定包"
+sudo apt-get install -y --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages libgl1-mesa-glx libglib2.0-0
 
 # 4. 安装Python依赖（多源加速）
 log "安装Python依赖"
-pip install --use-feature=fast-deps --no-cache-dir -r requirements.txt \
-  -i https://pypi.tuna.tsinghua.edu.cn/simple \
-  --extra-index-url https://mirrors.aliyun.com/pypi/simple \
-  --extra-index-url https://pypi.mirrors.ustc.edu.cn/simple
+pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
 set +x
 log "完成！"
