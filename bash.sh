@@ -32,7 +32,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # 导入缺失的公钥
-sudo gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
+gpg --no-default-keyring --keyring /usr/share/keyrings/ubuntu-archive-keyring.gpg --keyserver keyserver.ubuntu.com --recv-keys 871920D1991BC93C
 if [ $? -ne 0 ]; then
     echo "导入公钥失败"
     exit 1
