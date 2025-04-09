@@ -10,6 +10,12 @@ log() {
     echo "[$timestamp] $message"
 }
 
+# 替换为清华镜像源
+log "正在执行: 替换软件源为清华镜像源"
+echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse" > /etc/apt/sources.list
+echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse" >> /etc/apt/sources.list
+echo "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse" >> /etc/apt/sources.list
 
 # 安装 Python 包
 log "正在执行: 安装 Python 包"
@@ -19,14 +25,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-
-
 # 更新软件包列表
 log "正在执行: 更新软件包列表"
 apt-get update
 if [ $? -ne 0 ]; then
-    log "更新软件包列表失败，尝试恢复源文件"
-    cp /etc/apt/sources.list.bak /etc/apt/sources.list
+    log "更新软件包列表失败"
     exit 1
 fi
 
