@@ -15,11 +15,11 @@ EOF
 
 # 2. 更新软件包列表
 log "更新软件包列表"
-sudo apt-get update
+apt-get update
 
 # 3. 强制更新系统并安装指定包
 log "强制更新系统并安装指定包"
-sudo apt-get install -y --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages libgl1-mesa-glx libglib2.0-0
+apt-get install -y --no-install-recommends --allow-downgrades --allow-remove-essential --allow-change-held-packages libgl1-mesa-glx libglib2.0-0
 
 # 4. 安装Python依赖（多源加速）
 log "安装Python依赖"
