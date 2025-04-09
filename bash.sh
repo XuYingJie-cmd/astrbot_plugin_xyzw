@@ -15,7 +15,7 @@ EOF
 
 # 2. 更新并安装依赖
 log "更新系统"
-apt-get update -o Acquire::AllowInsecureRepositories=true
+apt-get update
 apt-get install -y --no-install-recommends libgl1-mesa-glx libglib2.0-0
 
 # 3. 安装Python包（多镜像源）
