@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# 获取当前脚本所在目录
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+# 切换到包含 requirements.txt 的目录
+cd "$SCRIPT_DIR"
+
 # 安装 Python 包
 pip install -r requirements.txt -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 if [ $? -ne 0 ]; then
@@ -27,4 +33,3 @@ if [ $? -ne 0 ]; then
     echo "安装 libgl1-mesa-glx 失败"
     exit 1
 fi
-
