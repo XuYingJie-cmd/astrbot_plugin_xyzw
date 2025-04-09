@@ -10,14 +10,14 @@ log "备份并移除原来的 APT 源"
 if [ -f /etc/apt/sources.list ]; then
     mv /etc/apt/sources.list /etc/apt/sources.list.bak
 fi
-touch /etc/apt/sources.list
+> /etc/apt/sources.list
 
-# 2. 配置清华 APT 源
+# 2. 配置阿里云 APT 源
 log "配置 APT 镜像源"
 tee /etc/apt/sources.list <<EOF
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
-deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://mirrors.aliyun.com/ubuntu/ jammy-security main restricted universe multiverse
 EOF
 
 # 3. 更新并安装依赖
