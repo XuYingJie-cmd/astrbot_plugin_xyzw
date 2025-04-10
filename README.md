@@ -18,6 +18,9 @@ win只需要pip install -r requirements.txt即可 然后根据报错补充依赖
 
 欢迎大佬提交PR修改(主要是这个依赖库下载太慢了)
 
+# 建议  如果 服务器例如2H2G那种的 容易卡死  请给docker设置上例如
+docker update --cpus=0.5 --memory=700m --memory-swap=1400m astrbot
+docker update --cpus=0.5 --memory=700m --memory-swap=1400m gewe
 
 # 支持
 
