@@ -23,8 +23,8 @@
 
 # 建议  如果 服务器例如2H2G那种的 容易卡死  请给docker设置上例如
 
-    docker update --cpus=0.5 --memory=700m --memory-swap=1400m astrbot
-    docker update --cpus=0.5 --memory=700m --memory-swap=1400m gewe
+    docker update --cpus=1 --memory=900m --memory-swap=1800m astrbot
+    docker update --cpus=1 --memory=700m --memory-swap=1400m gewe
 
 # 配置参数
     可以配置如日期 节日 要求金砖数量 宝箱数量等参数
