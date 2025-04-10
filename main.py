@@ -38,7 +38,7 @@ class MyPlugin(Star):
         global ocr  # 声明使用全局变量
 
         message_chain = event.get_messages()
-        logger.info(message_chain)
+      #  logger.info(message_chain)
         if message_chain:
             first_message = message_chain[0]
             try:
