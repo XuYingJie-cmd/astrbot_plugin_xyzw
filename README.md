@@ -12,7 +12,9 @@
     bash bash.sh
 如果补充完毕仍有报错请根据报错补充相对依赖的包
 
-目前仅测试ubuntu(gewe)为正常的 win只需要pip install -r requirements.txt即可 然后根据报错补充依赖?
+目前仅测试gewe为正常的
+
+win只需要pip install -r requirements.txt即可 然后根据报错补充依赖?
 
 欢迎大佬提交PR修改(主要是这个依赖库下载太慢了)
 
