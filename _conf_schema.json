@@ -21,7 +21,7 @@
     "description": "黄金鱼竿",
     "type": "int",
     "hint": "可选项。默认650竿 可以自行配置",
-    "default": 30
+    "default": 650
   },
   "baoxiang": {
     "description": "宝箱积分",
