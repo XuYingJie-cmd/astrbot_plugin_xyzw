@@ -10,7 +10,7 @@ from .config import GLOBAL_CONFIG
 
 try:
     from paddleocr import PaddleOCR
-    ocr = PaddleOCR(use_angle_cls=True, lang="ch", use_gpu=False)
+    ocr = PaddleOCR(use_angle_cls=False, lang="ch", use_gpu=False)
     logger.info("PaddleOCR 初始化成功")
 except Exception as e:
     error_traceback = traceback.format_exc()

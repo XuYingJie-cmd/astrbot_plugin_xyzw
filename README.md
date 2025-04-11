@@ -23,7 +23,7 @@
 
 # 建议  如果 服务器例如2H2G那种的 容易卡死  请给docker设置上例如
 
-    docker update --cpus=1 --memory=900m --memory-swap=1800m astrbot
+    docker update --cpus=1 --memory=1100m --memory-swap=2200m astrbot
     docker update --cpus=1 --memory=700m --memory-swap=1400m gewe
 
 # 配置参数
